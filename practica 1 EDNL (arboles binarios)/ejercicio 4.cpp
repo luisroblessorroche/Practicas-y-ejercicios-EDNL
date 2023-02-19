@@ -22,10 +22,10 @@ template <typename T> inline int Abin<T>::altura_vectorial(nodo n) const
 {
 	if(nodos[n].elto == NODO_NULO)
   	{
-    	return -1;
+		return -1;
   	}
-  	else
+	else
   	{
-    	return 1 + std::max(altura_vectorial(nodos[n].hizq),altura_vectorial(nodos[n].hder));
-  	}
+		return 1 + std::max(altura_vectorial(nodos[n].hizq),altura_vectorial(nodos[n].hder));
+	}
 }
