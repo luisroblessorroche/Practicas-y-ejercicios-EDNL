@@ -12,7 +12,7 @@ template <typename T> bool abin_pseudocompleto(const Abin<T> &A)
 	return abin_pseudocompleto_rec(altura,A.raiz(),A);
 }
 
-template <typename T> bool abin_pseudocompleto_rec(typename Abin<T>::nodo n, const Abin<T> &A)
+template <typename T> bool abin_pseudocompleto_rec(int altura,typename Abin<T>::nodo n, const Abin<T> &A)
 {
 	if(n == Abin<T>::NODO_NULO)
 	{
@@ -22,11 +22,11 @@ template <typename T> bool abin_pseudocompleto_rec(typename Abin<T>::nodo n, con
 	{
 		if(profundidad_nodo(n,A) == altura -1)
 		{
-			return cero_o_dos_hijos(n,A) && abin_pseudocompleto(altura,A.hijoIzqdo(n),A) && abin_pseudocompleto(altura,A.hijoDrcho(n),A);
+			return cero_o_dos_hijos(n,A) && abin_pseudocompleto_rec(altura,A.hijoIzqdo(n),A) && abin_pseudocompleto_rec(altura,A.hijoDrcho(n),A);
 		}
 		else
 		{
-			return abin_pseudocompleto(altura,A.hijoIzqdo(n),A) && abin_pseudocompleto(altura,A.hijoDrcho(n),A);
+			return abin_pseudocompleto_rec(altura,A.hijoIzqdo(n),A) && abin_pseudocompleto_rec(altura,A.hijoDrcho(n),A);
 		}
 	}
 }

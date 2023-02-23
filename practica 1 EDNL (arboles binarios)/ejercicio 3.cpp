@@ -7,7 +7,7 @@ la profundidad de este nodo en dicho árbol.
 
 template <typename T> int profundidad_nodo_abin(typename Abin<T>::nodo n, const Abin<T> &A)
 {
-	return profundidad_abin_rec(n,A);
+	return profundidad_nodo_abin_rec(n,A);
 }
 
 template <typename T> int profundidad_nodo_abin_rec(typename Abin<T>::nodo n, const Abin<T> &A)
