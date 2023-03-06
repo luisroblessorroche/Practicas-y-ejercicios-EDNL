@@ -40,8 +40,9 @@ template <typename T> class Abin
 		void insertarRaiz(T& e);
 		void insertarHijoIzqdo(nodo n, T& e);
 		void padre(T& e);
+		int altura_abin();
 	private:
-		dtd::vector<T> vec;
+		std::vector<T> vec;
 		T ELTO_NULO;
 }
 
@@ -66,11 +67,11 @@ template <typename T> void insertarRaiz(T& e)
 
 template <typename T> void insertarHijoIzqdo(nodo n, T& e)
 {
-	assert(i>0 && i<vec.size());
+	assert(n>0 && n<vec.size());
 	assert(vec.at(n) != ELTO_NULO);
 	int altura = altura_nodo(n);
 	assert(n - pow(2,altura) >= 0);
-	assert(vec.at(n - pow(2,altura)) != ELTO_NULO);
+	assert(vec.at(n - pow(2,altura)) == ELTO_NULO);
 	
 	vec.at(n-pow(2,altura)) = e;
 }
@@ -89,4 +90,15 @@ template <typename T> nodo padre(nodo n)
 	}
 }
 
+template <typename> int altura_abin()
+{
+	int H = -1;
+	int tam_vector = vec.size() + 1;
+	while(tam_vector != 1)
+	{
+		tam_vector = tam_vector/2;
+		H++;
+	}
+	return H;
+}
 

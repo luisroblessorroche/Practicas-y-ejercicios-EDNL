@@ -61,4 +61,9 @@ double abin_expresion_rec(Abin<op>::nodo n, const Abin<op> &A)
 	}
 }
 
+bool n_es_nodo_hoja(typename Abin<T>::nodo n, const Abin<T> &A)
+{
+	return A.hijoIzqdo(n) == Abin<T>::NODO_NULO && A.hijoDrcho(n) == Abin<T>::NODO_NULO;
+}
+
 
