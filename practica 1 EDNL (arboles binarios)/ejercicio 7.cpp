@@ -45,7 +45,7 @@ template <typename T> int altura_abin(typename Abin<T>::nodo n, const Abin<T> &A
 
 template <typename T> int profundidad_nodo(typename Abin<T>::nodo n, const Abin<T> &A)
 {
-		if(n == Abin<T>::NODO_NULO)
+	if(n == Abin<T>::NODO_NULO)
 	{
 		return -1;
 	}

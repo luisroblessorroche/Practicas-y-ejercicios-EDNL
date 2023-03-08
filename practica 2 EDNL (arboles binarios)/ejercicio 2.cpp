@@ -15,7 +15,7 @@ template <typename T> Abin<T> abin_reflejado(const Abin<T> &A)
 		abin_reflejado_rec(A.raiz(),B.raiz(),A,B);
 	}
 	
-	return B;
+	return B;	
 }
 
 template <typename T> void abin_reflejado_rec(typename Abin<T>::nodo n1, typename Abin<T>::nodo n2, const Abin<T> &A, const Abin<T> &B)
