@@ -59,7 +59,7 @@ template <typename T> int calcular_nietos(int profundidad, typename Abin<T>::nod
 	}
 }
 
-template <typename T> int calcular_nietos(int profundidad, typename Abin<T>::nodo n, const Abin<T> &A)
+template <typename T> int calcular_bisnietos(int profundidad, typename Abin<T>::nodo n, const Abin<T> &A)
 {
 	if(n == Abin<T>::NODO_NULO)
 	{
@@ -69,11 +69,11 @@ template <typename T> int calcular_nietos(int profundidad, typename Abin<T>::nod
 	{
 		if(profundidad_nodo(n,A) - profundidad == 3)
 		{
-			return 1 + calcular_nietos(profundidad, A.hijoIzqdo(n),A) + calcular_nietos(profundidad,A.hijoDrcho(n),A);
+			return 1 + calcular_bisnietos(profundidad, A.hijoIzqdo(n),A) + calcular_bisnietos(profundidad,A.hijoDrcho(n),A);
 		}
 		else
 		{
-			return calcular_nietos(profundidad, A.hijoIzqdo(n),A) + calcular_nietos(profundidad,A.hijoDrcho(n),A);
+			return calcular_bisnietos(profundidad, A.hijoIzqdo(n),A) + calcular_bisnietos(profundidad,A.hijoDrcho(n),A);
 		}
 	}
 }
