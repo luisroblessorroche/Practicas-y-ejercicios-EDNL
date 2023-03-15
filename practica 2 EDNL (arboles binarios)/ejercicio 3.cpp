@@ -25,14 +25,9 @@ struct op
 
 double abin_expresion(const Abin<op> &A)
 {
-	if(A.raiz() != Abin<op>::NODO_NULO)
-	{
-		return abin_expresion_rec(A.raiz(),A);	
-	}
-	else
-	{
-		return NULL;
-	}
+
+	return abin_expresion_rec(A.raiz(),A);	
+	
 }
 
 double abin_expresion_rec(Abin<op>::nodo n, const Abin<op> &A)

@@ -102,3 +102,28 @@ template <typename> int altura_abin()
 	return H;
 }
 
+int profundidad_nodo(nodo n, int tam_vec)
+{
+	return produndidad_nodo_rec(n,(tam_vec-1)/2,0,tam_vec-1); 
+}
+
+int profundidad_nodo_rec(nodo n,int centro int ini, int fin)
+{
+	if(n == (centro)
+	{
+		return 0;
+	}
+	else
+	{
+		centro = (fin+ini)/2;
+		id(n<centro)
+		{
+			return 1 + profundidad_nodo_rec(n,ini,medio-1);
+		}
+		else
+		{
+			return 1 + profundidad_nodo_rec(n,medio+1,fin);
+		}
+	}
+}
+
