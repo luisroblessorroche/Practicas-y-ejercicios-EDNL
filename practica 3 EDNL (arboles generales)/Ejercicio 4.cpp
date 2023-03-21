@@ -20,8 +20,12 @@ void poda_agen_rec(Agen<int>::nodo n, int x, const Agen<int> &A)
 		}
 		else
 		{
-			poda_agen_rec(A.hijoIzqdo(n),x,A);
-			poda_agen_rec(A.hermDrcho(n),x,A);
+			typename Agen<int>::nodo hijo = A.hijoIzqdo(n);
+			while(hijo != Agen<int>::NODO_NULO)
+			{
+				poda_agen_rec(hijo,A);
+				hijo = hermDrcho(n);
+			}
 		}
 	}
 }
@@ -31,7 +35,7 @@ void poda(Agen<int>::nodo n, const Agen<int> &A)
 	while(A.hijoIzqdo(n) != Agen<int>::NODO_NULO)
 	{
 		poda(A.hijoIzqdo(n),A);
-		A.eliminarhijoIzqdo(n);
+		A.eliminarHijoIzqdo(n);
 	}
 }
 
