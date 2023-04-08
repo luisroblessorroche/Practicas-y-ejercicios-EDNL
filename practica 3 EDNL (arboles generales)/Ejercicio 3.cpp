@@ -28,6 +28,12 @@ template <typename T> int desequilibrio_agen_rec(typename Agen<T>::nodo n, const
 			int altura_min = altura_min(n,A);
 			
 			int desequilibrio = max(altura_max-altura_min, desequilibrio_agen_rec(A.hijoIzqdo(n),A));
+		int altura_max = altura_max(n,A);
+		int altura_min = altura_min(n,A);
+		Agen<T>::nodo hijo = A.hijoIzqdo(n);
+		while(hijo != Agen<T>::NODO_NULO)
+		{
+			int desequilibrio = max(altura_max-altura_min,desequilibrio_agen_rec(hijo,A));
 			hijo = A.hermDrcho(n);
 		}
 		return desequilibrio;
@@ -45,6 +51,8 @@ template <typename T> int altura_max(typename Agen<T>::nodo n, const Agen<T> &A)
 		return 1 + max(altura_max(A.hijoIzqdo(n),A),altura_max(A.hermDrcho(n),A));
 	}
 }
+
+template <typename T> int altura_max
 
 template <typename T> int altura_min(typename Agen<T>::nodo n, const Agen<T> &A)
 {
