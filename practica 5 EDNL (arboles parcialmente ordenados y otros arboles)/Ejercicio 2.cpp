@@ -45,15 +45,7 @@ template <typename T> inline void Apo_Min_Max<T>::insertar(const T& e)
 	assert (numNodos < maxNodos);
 	nodos[numNodos] = e;
 	numNodos++;
-	
-	if(numNodos ==2 || numNodos == 3)
-	{
-		flotar_Apo(numNodos - 1);
-	}
-	else
-	{
-		flotar(numNodos - 1);
-	}
+	flotar(numNodos - 1);
 }
 
 template <typename T>void Apo<T>::flotar_Apo(nodo i)
