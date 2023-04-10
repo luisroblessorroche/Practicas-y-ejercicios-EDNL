@@ -73,50 +73,67 @@ template <typename T> void Apo_Min_Max<T>::flotar(nodo i)
 	
 	T e = nodos[i];
 	
-	if(i > 1 && nivelNodo(i)%2 == 0)
+	if(i == 1 || i == 2)
 	{
-		int indice = buscar_min(i-2);
-		if(e < nodos[indice])
+		int ind = buscar_min(i-1);
+		if(e < nodos[ind])
 		{
-			nodos[i] = nodos[indice];
-			i = indice;
+			nodos[i] = nodos[ind];
+			i = ind;
 			nodos[i] = e;
 			flotar(i);
-		}
-		else
-		{
-			int indice2 = buscar_min(i-1);
-			if(e > nodos[indice2])
-			{
-				nodos[i] = nodos[indice2];
-				i = indice2;
-				nodos[i] = e;
-				flotar(i);
-			}
 		}
 	}
 	else
 	{
-		int indice = buscar_min(i-2);
-		if(e > nodos[indice])
+		if(i > 2 && nivelNodo(i)%2 == 0)
 		{
-			nodos[i] = nodos[indice];
-			i = indice;
-			nodos[i] = e;
-			flotar(i);
-		}
-		else
-		{
-			int indice2 = buscar_min(i-1);
-			if(e < nodos[indice2])
+			int indice = buscar_min(i-2);
+			if(e < nodos[indice])
 			{
-				nodos[i] = nodos[indice2];
-				i = indice2;
+				nodos[i] = nodos[indice];
+				i = indice;
 				nodos[i] = e;
 				flotar(i);
 			}
+			else
+			{
+				int indice2 = buscar_min(i-1);
+				if(e > nodos[indice2])
+				{
+					nodos[i] = nodos[indice2];
+					i = indice2;
+					nodos[i] = e;
+					flotar(i);
+				}
+			}
 		}
-	}
+		else
+		{
+			if(i > 2 && nivelNodo(i)%2 == 1)
+			{
+				int indice = buscar_min(i-2);
+				if(e > nodos[indice])
+				{
+					nodos[i] = nodos[indice];
+					i = indice;
+					nodos[i] = e;
+					flotar(i);
+				}
+				else
+				{
+					int indice2 = buscar_min(i-1);
+					if(e < nodos[indice2])
+					{
+						nodos[i] = nodos[indice2];
+						i = indice2;
+						nodos[i] = e;
+						flotar(i);
+					}
+				}
+			}
+		}
+	}	
 }
 
 template<typename T> int buscar_min(nodo i)
