@@ -43,7 +43,7 @@ template <typename T> class Abin
 		int altura_abin();
 	private:
 		std::vector<T> vec;
-		T ELTO_NULO;
+		int numNodos;
 }
 
 template <typename T> Abin(int n)

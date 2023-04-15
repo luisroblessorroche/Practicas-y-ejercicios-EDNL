@@ -34,8 +34,9 @@ template <typename T> class Apo_Min_Max {
 		nodo hIzq(nodo i) const { return 2*i+1; }
 		nodo hDer(nodo i) const { return 2*i+2; }
 		int nivelNodo(nodo i);
+		int buscar_min(nodo i);
+		int buscar_max(nodo i);
 		void flotar(nodo i);
-		void flotar_Apo(nodo i);
 		void hundir(nodo i);
 };
 
@@ -48,16 +49,6 @@ template <typename T> inline void Apo_Min_Max<T>::insertar(const T& e)
 	flotar(numNodos - 1);
 }
 
-template <typename T>void Apo<T>::flotar_Apo(nodo i)
-{
-	T e = nodos[i];
-	while (i > 0 && e < nodos[padre(i)])
-	{
-		nodos[i] = nodos[padre(i)];
-		i = padre(i);
-	}
-	nodos[i] = e;
-}
 
 template <typename T> void Apo_Min_Max<T>::flotar(nodo i)
 {
@@ -67,7 +58,7 @@ template <typename T> void Apo_Min_Max<T>::flotar(nodo i)
 	
 	if(i == 1 || i == 2)
 	{
-		int ind = buscar_min(i-1);
+		int ind = buscar_min(i)-1;
 		if(e < nodos[ind])
 		{
 			nodos[i] = nodos[ind];
@@ -80,7 +71,7 @@ template <typename T> void Apo_Min_Max<T>::flotar(nodo i)
 	{
 		if(i > 2 && nivelNodo(i)%2 == 0)
 		{
-			int indice = buscar_min(i-2);
+			int indice = buscar_max(i)-2;
 			if(e < nodos[indice])
 			{
 				nodos[i] = nodos[indice];
@@ -90,7 +81,7 @@ template <typename T> void Apo_Min_Max<T>::flotar(nodo i)
 			}
 			else
 			{
-				int indice2 = buscar_min(i-1);
+				int indice2 = buscar_min(i)-1;
 				if(e > nodos[indice2])
 				{
 					nodos[i] = nodos[indice2];
@@ -104,7 +95,7 @@ template <typename T> void Apo_Min_Max<T>::flotar(nodo i)
 		{
 			if(i > 2 && nivelNodo(i)%2 == 1)
 			{
-				int indice = buscar_min(i-2);
+				int indice = buscar_min(i)-2;
 				if(e > nodos[indice])
 				{
 					nodos[i] = nodos[indice];
@@ -114,7 +105,7 @@ template <typename T> void Apo_Min_Max<T>::flotar(nodo i)
 				}
 				else
 				{
-					int indice2 = buscar_min(i-1);
+					int indice2 = buscar_max(i)-1;
 					if(e < nodos[indice2])
 					{
 						nodos[i] = nodos[indice2];
@@ -128,7 +119,7 @@ template <typename T> void Apo_Min_Max<T>::flotar(nodo i)
 	}	
 }
 
-template<typename T> int buscar_min(nodo i)
+template<typename T> int Apo_Min_Max<T>::buscar_min(nodo i)
 {
 	int min = nodos[pow(2,i) -1];
 	for(int x = pow(2,i) -1; x < pow(2,i+1) -1;x++)
@@ -139,6 +130,19 @@ template<typename T> int buscar_min(nodo i)
 		}
 	}
 	return min;
+}
+
+template<typename T> int Apo_Min_Max<T>::buscar_max(nodo i)
+{
+	int max = nodos[pow(2,i) -1];
+	for(int x = pow(2,i) -1; x < pow(2,i+1) -1;x++)
+	{
+		if(nodos[x] > max)
+		{
+			max = nodos[x];
+		}
+	}
+	return max;
 }
 
 template <typename T> int Apo_Min_Max<T>::nivelNodo(nodo i)

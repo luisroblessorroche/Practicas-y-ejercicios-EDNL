@@ -8,7 +8,7 @@ representación del tipo Conjunto debe ser tal que la operación de pertenencia es
 caso promedio en O(log n).
 */
 
-template <typename > Abb<T> union_menos_interseccion(Abb<T> &A, Abb<T> &B)
+template <typename T> Abb<T> union_menos_interseccion(Abb<T> &A, Abb<T> &B)
 {
 	typename Abb<T> Abb_union = A;
 	union_abb_rec(Abb_union,B);

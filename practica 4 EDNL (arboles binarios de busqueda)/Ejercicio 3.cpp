@@ -9,7 +9,7 @@ conjunto que sea la unión de ambos, representado por un ABB equilibrado.
 
 template <typename T> Abb<T> union_abb(Abb<T> &A, Abb<T> &B)
 {
-	typename Abb<T> Abb_union = A;
+	Abb<T> Abb_union(A);
 	union_abb_rec(Abb_union,B);
 	std::vector<T> vec;
 	rellenar_vector(vec,Abb_union);

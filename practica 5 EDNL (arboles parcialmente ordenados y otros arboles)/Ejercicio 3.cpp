@@ -10,6 +10,7 @@ template <typename T> class Apo_Min_Max {
 		explicit Apo(size_t maxNodos); // constructor
 		void insertar(const T& e);
 		void suprimir();
+		void suprimir_max()
 		const T& cima() const;
 		bool vacio() const;
 		Apo(const Apo<T>& A); // ctor. de copia
@@ -32,18 +33,18 @@ template <typename T> class Apo_Min_Max {
 		void hundir(nodo i);
 };
 
-template <typename T> inline void Apo_Min_Max<T>::suprimir()
+template <typename T> inline void Apo_Min_Max<T>::suprimir_max()
 {
 	assert(numNodos > 0);
 	nodo max = 0;
-	if(numNodos > 1)
+	if(numNodos == 1)
+	{
+		numNodos = 0;
+	}
+	else
 	{
 		max = buscar_max(1);
-	}
-	
-	if(--numNodos > 0)
-	{
-		nodos[max] = nodos[numNodos];
+		nodos[max] = nodos[numNodos -1];
 		if(numNodos > 1)
 		{
 			hundir(max);
@@ -51,7 +52,7 @@ template <typename T> inline void Apo_Min_Max<T>::suprimir()
 	}
 }
 
-template<typename T> int buscar_max(nodo i)
+template<typename T> int Apo_Min_Max<T>::buscar_max(nodo i)
 {
 	int max = nodos[pow(2,i) -1];
 	for(int x = pow(2,i) -1; x < pow(2,i+1) -1;x++)
@@ -64,28 +65,35 @@ template<typename T> int buscar_max(nodo i)
 	return max;
 }
 
-template <typename T> inline void hundir(nodo i)
+template <typename T> inline void Apo_Min_Max<T>::hundir(nodo i)
 {
-	if(nivelNodo(numNodos - 1) - nivelNodo(max) >= 2)
+	if(nivelNodo(numNodos - 1) - nivelNodo(i) >= 2)
 	{
-		int max = busca_max(i + 2);
+		int max = buscar_max(nivelNodo(i) + 2);
 		T e = nodos[i];
 		nodos[i] = nodos[max];
 		nodos[max] = e;
-	}
-	
-	if(nivelNodo(i) != nivelNodo(numNodos -1))
-	{
 		hundir(i);
 	}
 	else
 	{
-		T a = nodos[i];
-		nodos[i] = nodos[numNodos -1];
-		nodos[numNodos -1] = a;
-		numNodos--;
+		if(nivelNodo(numNodos -1) - nivelNodo(i) == 1)
+		{
+			int max = buscar_max(nivelNodo(i) + 1);
+			T e = nodos[i];
+			nodos[i] = nodos[max];
+			nodos[max] = e;
+			hundir(i);
+		}
+		else
+		{
+			int max = buscar_max(nivelNodo(i));
+			T e = nodos[i];
+			nodos[i] = nodos[max];
+			nodos[max] = e;
+			numNodos--;
+		}	
 	}
-	
 }
 
 
