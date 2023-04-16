@@ -30,10 +30,10 @@ char** rellenar_matriz(const Agen<char>& A)
 	else
 	{
 		int k = altura_agen(A.raiz(),A);
-		char** matriz = new char*[k];
-		for(int i = 0; i < k; i++)
+		char** matriz = new char*[pow(2,k)];
+		for(int i = 0; i < pow(2,k); i++)
 		{
-			matriz[i] = new char[k];
+			matriz[i] = new char[pow(2,k)];
 		}
 		rellenar_matriz_rec(A.raiz(),A,matriz);
 		return matriz;
