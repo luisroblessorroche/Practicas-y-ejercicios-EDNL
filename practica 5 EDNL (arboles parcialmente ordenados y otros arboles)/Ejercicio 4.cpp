@@ -32,10 +32,11 @@ template <typename T> bool agen_ternario_rec(typename Agen<T>::nodo n, const Age
 template <typename T> bool num_hijos(typename Agen<T>::nodo n, const Agen<T> &A)
 {
 	int cont = 0;
-	while(n != Agen<T>::NODO_NULO)
+	Agen<T>::nodo hijo = A.hijoIzqdo(n);
+	while(hijo != Agen<T>::NODO_NULO)
 	{
 		cont++;
-		n = A.hermDrcho(n);
+		hijo = A.hermDrcho(hijo);
 	}
 	
 	return (cont == 0 || cont == 3);
