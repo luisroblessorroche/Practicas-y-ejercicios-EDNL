@@ -72,10 +72,11 @@ bool agen_cuaternario(typename Agen<figura>::nodo n, const Agen<figura> &A)
 	}
 	else
 	{
+		bool cuaternario = num_hijos(n,A);
 		Agen<figura>::nodo hijo = A.hijoIzqdo(n);
 		while(hijo != Agen<figura>::NODO_NULO)
 		{
-			bool cuaternario = num_hijos(n,A) && agen_cuaternario(hijo,A);
+			cuaternario = cuaternario && agen_cuaternario(hijo,A);
 			hijo = A.hermDrcho(hijo);
 		}
 		return cuaternario;
@@ -147,9 +148,9 @@ void rellenar_matriz(Agen<figura>::nodo n, const Agen<figura> &A, char** &matriz
 
 void rellenar_huecos(Agen<figura>::nodo n, const Agen<figura> &A, char** &matriz, char c)
 {
-	for(int i = A.elemento(n).coor_s_i_x; i <= A.elemento(n).coor_s_i_y)
+	for(int i = A.elemento(n).coor_s_i_x; i <= A.elemento(n).coor_s_d_x)
 	{
-		for(int j = A.elemento(n).coor_i_d_x; j <= A.elemento(n).coor_i_d_y)
+		for(int j = A.elemento(n).coor_i_i_y; j <= A.elemento(n).coor_i_d_y)
 		{
 			matriz[i][j] = c;
 		}

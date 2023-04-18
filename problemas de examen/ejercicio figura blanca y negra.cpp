@@ -20,10 +20,9 @@ devuelva la figura asociada, representada como una matriz cuadrada de tamaño 2k 
 que cada celda representa un punto blanco o negro.
 */
 
-
 char** rellenar_matriz(const Agen<char>& A)
 {
-	if(A.vacio() || agen_cuaternario(A.raiz(),A))
+	if(A.vacio() || !agen_cuaternario(A.raiz(),A))
 	{
 		throw std::invalid_argument("el arbol es invalido para representar una figura");
 	}
@@ -35,7 +34,7 @@ char** rellenar_matriz(const Agen<char>& A)
 		{
 			matriz[i] = new char[pow(2,k)];
 		}
-		rellenar_matriz_rec(A.raiz(),A,matriz);
+		rellenar_matriz_rec(A.raiz(),A,matriz,0,0,pow(2,k)-1,pow(2,k)-1);
 		return matriz;
 	}
 }
@@ -92,25 +91,62 @@ int altura_agen(Agen<char>::nodo n, const Agen<char>& A)
 }
 
 
-void rellenar_matriz_rec(Agen<char>::nodo n, const Agen<char>&A, char** matriz)
+void rellenar_matriz_rec(Agen<char>::nodo n, const Agen<char>&A, char** matriz,int x_ini, int y_ini, int x_fin, int y_fin)
 {
 	char opcion = A.elemento(n);
 	
 	switch(op)
 	{
 		case 'B':
-			
+				for(int i = x_ini; i < y_ini;i++)
+				{
+					for(int j = y_ini;j < y_fin;j++)
+					{
+						matriz[i][j] = 'B';
+					}
+				}
 			
 			break;
 		case 'N':
-			
+				for(int i = x_ini; i < y_ini;i++)
+				{
+					for(int j = y_ini;j < y_fin;j++)
+					{
+						matriz[i][j] = 'N';
+					}
+				}
 			break;
 		case ' ':
+			int cuadrante = 1;
 			Agen<char>::nodo hijo = A.hijoIzqdo(n);
 			while(hijo != Agen<char>::NODO_NULO)
 			{
-				rellenar_matriz_rec(hijo,A,matriz);
-				hijo = A.hermDrcho(hijo);
+				switch(cuadrante)
+				{
+					case 1:
+						cuadrante++;
+						rellenar_matriz_rec(hijo,A,matriz,x_ini,y_ini,((x_ini+x_fin)/2),((y_ini+y_fin)/2));
+						hijo = A.hermDrcho(hijo);
+						break;
+					
+					case 2:
+						cuadrante++;
+						rellenar_matriz_rec(hijo,A,matriz,x_ini,((y_ini+y_fin)/2)+1,((x_ini+x_fin)/2),y_fin);
+						hijo = A.hermDrcho(hijo);
+						break;
+					
+					case 3:
+						cuadrante++;
+						rellenar_matriz_rec(hijo,A,((x_ini+x_fin)/2)+1,((y_ini+y_fin)/2)+1,x_fin,y_fin);
+						hijo = A.hermDrcho(hijo);	
+						break;
+						
+					case 4:
+						cuadrante++;
+						rellenar_matriz_rec(hijo,A,matriz,((x_ini+x_fin)/2)+1,y_ini,x_fin,((y_ini+y_fin)/2));
+						hijo = A.hermDrcho(hijo);
+						break;
+				}
 			}
 			
 			break;
