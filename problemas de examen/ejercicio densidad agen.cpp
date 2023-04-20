@@ -70,9 +70,8 @@ template <typename T> int num_hojas_agen(typename Agen<T>::nodo n, const Agen<T>
 			while(hijo != Agen<T>::NODO_NULO)
 			{
 				num_hojas = num_hojas + num_hojas_agen(hijo,A);
-			}
-			
-			hijo = A.hermDrcho(hijo);	
+				hijo = A.hermDrcho(hijo);
+			}	
 		}
 	}
 	return num_hojas;
