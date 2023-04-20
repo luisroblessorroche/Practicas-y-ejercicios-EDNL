@@ -107,7 +107,7 @@ int altura_agen(typename Agen<figura>::nodo n, const Agen<figura> &A)
 		Agen<figura>::nodo hijo = A.hijoIzqdo(n);
 		while(hijo != Agen<figura>::NODO_NULO)
 		{
-			altura = max(altura,altura_agen(hijo));
+			altura = max(altura,altura_agen(hijo,A));
 			hijo = A.hermDrcho(hijo); 
 		}
 		return altura + 1;

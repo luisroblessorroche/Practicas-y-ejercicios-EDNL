@@ -80,4 +80,3 @@ template <typename T> void podar_subarbol(Abin<T>::nodo n, Abin<T>&A)
 		}
 	}
 }
-
