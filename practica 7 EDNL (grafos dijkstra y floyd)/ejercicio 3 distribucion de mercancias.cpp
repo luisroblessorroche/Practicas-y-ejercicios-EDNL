@@ -53,7 +53,7 @@ template <typename tCoste> distribucion_mercancia(typename GrafoP<tCoste>::verti
 		vector<tCoste> ciudades_dijkstra = dijkstra(origen,C,P);
 		for(int i = 0; i < C.numVert();i++)
 		{
-			ciudades_dijkstra[i] = ciudades_dijkstra[i] * stock * subvencion[i]/100;
+			ciudades_dijkstra[i] = ciudades_dijkstra[i] * stock * (100 - subvencion[i])/100;
 		}
 		
 		vector<tCoste>::vertice menor_coste = 0;
