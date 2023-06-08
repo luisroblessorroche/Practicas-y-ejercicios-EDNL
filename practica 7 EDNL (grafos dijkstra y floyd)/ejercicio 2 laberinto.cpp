@@ -14,39 +14,94 @@ Implementa un subprograma que dados
 calcule el camino más corto para ir de la entrada a la salida y su longitud.
 */
 
+
+struct paredes
+{
+	casilla c1;
+	casilla c2;
+}
+
 struct casilla
 {
-	int i;
-	int j;
-};
+	int x;
+	int y;
+}
 
-template <typename tCoste> tCoste laberinto(int N, std::vector<casilla> paredes, casilla inicio, casilla final)
+struct coste_ruta
 {
-	GrafoP G(N);
+	tCoste coste;
+	vector<casillas> ruta;
+}
+
+template <typename tCoste> tCoste laberinto(int N, std::vector<paredes> paredes, casilla inicio, casilla final)
+{
+	matriz<tCoste> lab(N*N);
 	
-	for(int k = 0; k < paredes.size(); k++)
+	for(int i = 0; i < N*N;i++)
 	{
-		G[casilla[k].i][casilla[k].j] = GrafoP<tCoste>::INFINITO;
-	}
-	
-	
-	Grafo A(N);
-	
-	
-	for(int i = 0; i < N, i++)
-	{
-		for(int j = 0; j < N; j++)
+		for(int j = 0; j < N*N; j++)
 		{
-			if(G[i][j] != GrafoP<tCoste>::INFINITO)
+			if(ady(i,j) == 1 || ady(i,j) == 0)
 			{
-				G[i][j] = 1;
+				lab[i][j] = rellenar(i,j,N);
+			}
+			else
+			{
+				lab[i][j] = GrafoP<tCoste>::INFINITO;
 			}
 		}
 	}
 	
-	typename GrafoP<tCoste>::vertice ini = inicio.i;
-	typename GrafoP<tCoste>::vertice fin = fin.j;
+	for(int i = 0; i < paredes.size();i++)
+	{
+		int a = paredes[i].c1.x*N + paredes[i].c1.y;
+		int b = paredes[i].c2.x*N + paredes[i].c2.y;
+		
+		lab[a][b] = Grafo<tCoste>::INFINITO;
+		lab[b][a] = Grafo<tCoste>::INFINITO;	
+	}
 	
-	vector<tCoste> v = dijkstra(A,ini,P);
-	return v[fin];
+	GrafoP<tCoste>::vertice origen = inicio.x*N + inicio.y;
+	GrafoP<tCoste>::Vertice destino = final.x*N + final.y;
+	
+	vector<GrafoP<tCoste>::vertice> P;
+	
+	matriz dijkstra_lab = dijkstra(lab,origen,P);
+	
+	coste_ruta cr;
+	cr.coste = dijkstra_lab[destino];
+	
+	vector<GrafoP<tCoste>::vertice> v;
+	
+	while(destino != origen)
+	{
+		casilla c;
+		c.x = destino/N;
+		c.y = destino%N;
+		v.push_front(c);
+		destino = P[destino];
+	}
+	
+	return cr;
 }
+
+int ady(int i, int j, int N)
+{
+	int x1 = i/N;
+	int y1 = i%N;
+	int x2 = j/N;
+	int y2 = j%N;
+	return abs(x1-x2) + abs(y1-y2);
+}
+
+
+float rellenar(int a,int b,int N)						// para sacar la la coordenada del laberinto dado a y b
+{														// a = (a/N,a%N)
+	int x1 = a/N;										// b = (b/N,b%N)
+	int x2 = b/N;										// distancia euclidea de a y b
+	int y1 = a%N;
+	int y2 = b%N;
+	return sqrt(pow(x1-x2,2)+pow(y1-y2,2));
+}
+
+
